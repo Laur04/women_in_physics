@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang='en'>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>STEP UP Physics Lessons</title>
+        <meta name='author' content='Lauren Delwiche'>
+        <link rel="icon" href="{% static 'logo.png' %}">
+
+        {% block head %}{% endblock %}
+        <style>
+            .header {
+                background-color: rgb(24, 82, 103);
+            }
+            .header_img {
+                padding:7px;
+                width:100px;
+                display: inline-block;
+            }
+            .header_title {
+                color:white;
+                text-align:center;
+                font-size: 25px;
+                padding-top: 25px;
+                display: inline-block;
+            }
+            #footer {
+                padding-right:30px;
+                padding-top:10px;
+                padding-bottom:10px;
+                color:black;
+                background-color: rgb(24, 82, 103);
+            }
+            .credit {
+                color:black;
+            }
+            .credit:hover {
+                color:grey;
+                text-decoration: none;
+            }
+            .header_nav {
+                padding-top: 25px;
+                padding-left: 20px;
+                color: white;
+                font-size: 20px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+            }
+            .header_nav:hover {
+                text-decoration: none;
+                color:grey;
+            }
+        </style>
+    </head>
+    <body>
+        {% block root %}
+            <div class='' id='root' style="background: #FFFFFF;">
+                <div class='row header'>
+                    <div class='col-lg-5 col-md-6 col-sm-12 col-xs-12' style='text-align:center;'>
+                        <a href="https://engage.aps.org/stepup/home" target="_blank">
+                            <img class='header_img' src="{% static 'logo.png' %}" alt='STEP UP logo'/>
+                            <h1 class='header_title'>Women in Physics</h1>
+                        </a>
+                    </div>
+                    <div class='col-lg-2 col-md-1'></div>
+                    <div class='col-lg-5 col-md-5 col-sm-12 col-xs-12' style='text-align: center;'>
+                        <a href="{% url 'home:index' %}"><h3 class='header_nav'>Home</h3></a>
+                        <a href="{% url 'classroom:login' %}"><h3 class='header_nav'>Login</h3></a>
+                        <a href="{% url 'classroom:create' %}"><h3 class='header_nav'>Create</h3></a>
+                    </div>
+                </div>
+                {% block main %}{% endblock %}
+                <div id='footer'>
+                    <p style='text-align:right;'>Created by <a href='https://www.linkedin.com/in/lauren-delwiche-518638197' class='credit'>Lauren Delwiche</a></p>
+                </div>
+            </div>
+        {% endblock %}
+    </body>
+</html>

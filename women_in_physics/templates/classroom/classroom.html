@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="refresh" content="15">
+    <style>
+        .main {
+            text-align:center;
+            padding:20px;
+            background-color: rgba(138, 84, 168, .6);
+        }
+        .welcome {
+           font-size:160%;
+           margin-top:30px;
+        }
+        .ref_img {
+            width:95%;
+            padding-top:40px;
+        }
+        .button {
+            width:65%;
+            padding:10px;
+            margin:5px;
+            font-size:120%;
+            background-color: #9bc1b4;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class='row'>
+        <div class='col-lg-1 col-md-1 col-sm-1'></div>
+            <div class='main col-lg-10 col-md-10 col-sm-10 col-xs-12'>
+                {% if person == "student" %}
+                    <a href="{% url 'classroom:survey' classname %}"><button class='button'>Take Survey</button></a>
+                    <hr>
+                    <p style="font-size:20;">The posts from your fellow classmates will appear below as your teacher makes them available.</p>
+                    <hr>
+                {% endif %}
+                {% if person == "teacher" %}
+                    <p style="font-size:20;">The posts from your students will appear below and you will have the option to make them available for students to see.</p>
+                    <hr>
+                {% endif %}
+                {% for item in post_list %}
+                    <div class="row">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                            <p style='text-align:left;'><b>Post:</b> {{ item }}</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            {% if person == "teacher" and item.hidden == True %}
+                                <a href="{% url 'classroom:changestatus' classname person item.post_id %}"><button class='button'>Post to Student</button></a>
+                            {% endif %}
+                            {% if person == "teacher" and item.hidden == False %}
+                                <a href="{% url 'classroom:changestatus' classname person item.post_id %}"><button class='button'>Hide from Student</button></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+                {% if person == "teacher" %}
+                    <a onclick="return confirm('Are you sure that you want to delete this class? All posts associated with it will be lost and students will no longer be able to access it.')" href="{% url 'classroom:delete' classname %}"><button class='button'>Delete Class</button></a>
+                {% endif %}
+            </div>
+        <div class='col-lg-1 col-md-1 col-sm-1'></div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+{% endblock %}

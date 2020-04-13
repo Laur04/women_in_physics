@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .main {
+            text-align:center;
+            padding:20px;
+            background-color: rgba(138, 84, 168, .6);
+        }
+        .welcome {
+           font-size:160%;
+           margin-top:30px;
+        }
+        .ref_img {
+            width:95%;
+            padding-top:40px;
+        }
+        .button {
+            width:65%;
+            padding:10px;
+            font-size:120%;
+            background-color: #9bc1b4;
+            margin:5px;
+        }
+        .content {
+            padding: 15px;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class='row'>
+        <div class='col-lg-1 col-md-1 col-sm-1'></div>
+            <div class='main col-lg-10 col-md-10 col-sm-10 col-xs-12'>
+                <h1 class='welcome'>Welcome to the Women in Physics Lesson!</h1>
+                <div class='content'>
+                    <p>If you are a teacher, you can create a class for your students to use or login to the class you have already made.</p>
+                    <p>If you are a student, you can login using the username that your teacher gave to your class.</p>
+                </div>
+                <div class='row'>
+                    <div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>
+                        <a href="{% url 'classroom:create' %}"><button class='button'>Create Class</button></a>
+                    </div>
+                    <div class='col-lg-6 col-md-6 col-sm-6 col-xs-12'>
+                        <a href="{% url 'classroom:login' %}"><button class='button'>Login to Class</button></a>
+                    </div>
+                </div>
+            </div>
+        <div class='col-lg-1 col-md-1 col-sm-1'></div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+{% endblock %}
