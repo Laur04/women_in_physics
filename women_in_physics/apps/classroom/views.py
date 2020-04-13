@@ -10,6 +10,9 @@ def create(request):
     if request.method == 'POST':
         form = CreateForm(request.POST)
         if form.is_valid():
+            class_name = form.cleaned_data['class_name'].split(' ')
+            class_name = ''.join(class_name)
+
             # check
             repeat_c = False
             repeat_t = False
@@ -24,7 +27,7 @@ def create(request):
                     repeat_s = True
             current_classes = Classes.objects.all()
             for c in current_classes:
-                if c.name == form.cleaned_data['class_name']:
+                if c.name == class_name:
                     repeat_c = True
             if repeat_c or repeat_s or repeat_t:
                 return render(request, 'classroom/create.html', context={'form':form, 'repeat_c':repeat_c, 'repeat_t':repeat_t, 'repeat_s':repeat_s})
@@ -34,7 +37,7 @@ def create(request):
             new_teacher.save()
             new_student = Student(name=form.cleaned_data['student_username'])
             new_student.save()
-            new_class = Classes(name=form.cleaned_data['class_name'], teacher=new_teacher, student=new_student)
+            new_class = Classes(name=class_name, teacher=new_teacher, student=new_student)
             new_class.save()
             return HttpResponseRedirect(reverse('classroom:login'))
         return render(request, 'classroom/create.html', context={'form':form})
