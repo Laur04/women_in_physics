@@ -10,5 +10,4 @@ urlpatterns = [
     url(r'^classroom/(?P<classname>\w+)/(?P<person>\w+)/$', views.classroom, name='classroom'),
     url(r'^survey/(?P<classname>\w+)/$', views.survey, name='survey'),
     url(r'^changestatus/(?P<classname>\w+)/(?P<person>\w+)/(?P<post>\w+)/$', views.changestatus, name='changestatus'),
-    url(r'^delete/(?P<classname>\w+)/$', views.delete, name='delete'),
 ]

@@ -96,9 +96,3 @@ def changestatus(request, classname, person, post):
     to_change.changeStatus()
     return HttpResponseRedirect(reverse('classroom:classroom', kwargs={'classname':classname, 'person':'teacher'}))
 
-def delete(request, classname):
-    to_delete = Classes.objects.get(name=classname)
-    to_delete.teacher.delete()
-    to_delete.student.delete()
-    to_delete.delete()
-    return HttpResponseRedirect(reverse('home:index'))
