@@ -20,11 +20,15 @@
             padding-top:40px;
         }
         .button {
-            width:65%;
+            width:100%;
             padding:10px;
             margin:5px;
             font-size:120%;
             background-color: #9bc1b4;
+        }
+        .question {
+            text-align: left;
+            font-size: 15px;
         }
     </style>
 {% endblock %}
@@ -33,32 +37,47 @@
     <div class='row'>
         <div class='col-lg-1 col-md-1 col-sm-1'></div>
             <div class='main col-lg-10 col-md-10 col-sm-10 col-xs-12'>
-                {% if person == "student" %}
-                    <a href="{% url 'classroom:survey' classname %}"><button class='button'>Take Survey</button></a>
-                    <hr>
-                    <p style="font-size:20;">The posts from your fellow classmates will appear below as your teacher makes them available.</p>
-                    <hr>
-                {% endif %}
                 {% if person == "teacher" %}
-                    <p style="font-size:20;">The posts from your students will appear below and you will have the option to make them available for students to see.</p>
+                    <p style="font-size:20px;">The posts from your students will appear below and you will have the option to make them available for students to see.</p>
                     <hr>
-                {% endif %}
-                {% for item in post_list %}
+                    {% for item in post_list %}
+                        <div class="row">
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                <p class="question">{{ item.response }}</p>                        
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                {% if item.hidden == True %}
+                                    <a href="{% url 'classroom:changestatus' item.post_id %}"><button class='button'>Post to Students</button></a>
+                                {% endif %}
+                                {% if item.hidden == False %}
+                                    <a href="{% url 'classroom:changestatus' item.post_id %}"><button class='button'>Hide from Students</button></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
                     <div class="row">
-                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                            <p style='text-align:left;'><b>Post:</b> {{ item }}</p>
+                        <div class="col-lg-4 col-md-4 col-sm-3"></div>
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-112">
+                            <a href="{% url 'classroom:reset_student' %}"><button class='button'>Reset Student Password</button></a>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                            {% if person == "teacher" and item.hidden == True %}
-                                <a href="{% url 'classroom:changestatus' classname person item.post_id %}"><button class='button'>Post to Student</button></a>
-                            {% endif %}
-                            {% if person == "teacher" and item.hidden == False %}
-                                <a href="{% url 'classroom:changestatus' classname person item.post_id %}"><button class='button'>Hide from Student</button></a>
-                            {% endif %}
-                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-3"></div>
                     </div>
+                {% endif %}
+                {% if person == "student" %}
+                    <a href="{% url 'classroom:response' %}"><button class='button'>Post Response</button></a>
                     <hr>
-                {% endfor %}
+                    <p style="font-size:20px;">The posts from your fellow classmates will appear below as your teacher makes them available.</p>
+                    <hr>
+                    {% for item in post_list %}
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <p class="question">{{ item.response }}</p>                        
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                {% endif %}
             </div>
         <div class='col-lg-1 col-md-1 col-sm-1'></div>
     </div>
