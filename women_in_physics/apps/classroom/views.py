@@ -12,9 +12,6 @@ from django.template.loader import render_to_string
 from .forms import CreateForm, SurveyForm, StudentResetForm
 from .models import Classes, Post
 
-from weasyprint import HTML
-import tempfile
-
 def create(request):
     if request.method == 'POST':
         form = CreateForm(request.POST)
