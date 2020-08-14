@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block root %}
+    <div class='header'>
+        <div class="header-back"></div>
+        <div class="brand">
+            <a href="{% url 'home:index' %}"><img class="head-logo" src="https://higherlogicdownload.s3.amazonaws.com/APS/2c0c9f07-6428-4f8e-b9aa-a76098a80cd0/UploadedImages/logo-stepup.svg"/></a>
+        </div>
+        <div class="btn-bar row">
+            <a href="{% url 'home:index' %}" class="nav-item">Home</a>
+            <a href="{% url 'classroom:classroom' %}" class="nav-item">Classroom</a>
+            <div class="dropdown nav-item">
+                <button class="btn dropdown-toggle user-item" data-toggle="dropdown">
+                    <i class="fas fa-user"></i>
+                    <span class="caret"></span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right drop-item">
+                    {% if user.is_authenticated %}
+                        <ul>{{ user.username }}</ul>
+                        {% with class_name=user.groups.all.0|stringformat:"s" %}
+                            {% if class_name == "teacher" %}
+                                <ul><a href="{% url 'classroom:classroom' %}" class="drop-item">{{ user.class_teacher }}</a></ul>
+                            {% elif class_name == "student" %}
+                                <ul><a href="{% url 'classroom:classroom' %}" class="drop-item">{{ user.class_student }}</a></ul>
+                            {% else %}
+                                <ul><a href="#" class="drop-item">No Class</a></ul>
+                            {% endif %}
+                        {% endwith %}
+                        <ul><a href="{% url 'logout' %}" class="drop-item">Logout</a></ul>
+                    {% else %}
+                        <ul><a href="{% url 'login' %}" class="drop-item">Login</a></ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <div class="height-holder"></div>
+
+    <div style="margin: 20px;">
+        {% block main %}{% endblock %}
+    </div>
+
+    <div class="height-holder"></div>
+
+    <div class='footer'>
+        <div class="logo-col">
+            <img class="light-logo" src="https://higherlogicdownload.s3.amazonaws.com/APS/2c0c9f07-6428-4f8e-b9aa-a76098a80cd0/UploadedImages/logo-stepup-light.svg">
+            <br>
+            <br>
+            <p>Follow Us</p>
+            <div>
+                <a href="https://www.facebook.com/STEPUPPhysics/"><img class="social-icon" src="{% static 'img/facebook.png' %}" /></a>
+                <a href="https://www.instagram.com/stepupphysics/"><img class="social-icon" src="{% static 'img/instagram.png' %}" /></a>
+                <a href="https://twitter.com/STEPUPphysics"><img class="social-icon" src="{% static 'img/twitter.png' %}" /></a>
+            </div>
+            <br>
+            <br>
+            <p>Created by <a class="credit" href='https://www.linkedin.com/in/lauren-delwiche-518638197'>Lauren Delwiche</a></p>
+        </div>
+    </div>
+{% endblock %}

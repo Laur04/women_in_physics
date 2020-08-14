@@ -1,0 +1,34 @@
+main {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+}
+
+.centered-div {
+    text-align: center;
+}
+
+.aps-btn {
+    background-color: #a94a8f;
+    padding: .3em 1em .3em 1em;
+    border: none;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ffffff;
+    display: inline-block;
+    margin: 10px;
+}
+
+.aps-btn:hover {
+    background-color: #7e489b;
+}
+
+.header-1 {
+    color: #126479;
+    font-size: 3em;
+    font-weight: 900;
+}
+
+.error {
+    color: #db92bf;
+    font-weight: 600;
+}

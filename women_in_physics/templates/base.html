@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 {% load static %}
 
 <html lang='en'>
@@ -6,119 +7,24 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>STEP UP Physics Lessons</title>
+
+        <title>Lessons - Step Up</title>
         <meta name='author' content='Lauren Delwiche'>
-        <link rel="icon" href="{% static 'logo.png' %}">
-        <script src="https://kit.fontawesome.com/74f5f903f7.js" crossorigin="anonymous"></script>
+        <link rel="icon" href="{% static 'img/fav-logo.png' %}">
+
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/74f5f903f7.js" crossorigin="anonymous"></script>
+
+        <link rel='stylesheet' href="{% static 'css/base.css' %}">
+        <link rel='stylesheet' href="{% static 'css/nav.css' %}">
+        <link rel='stylesheet' href="{% static 'css/foot.css' %}">
 
         {% block head %}{% endblock %}
-        <style>
-            .header {
-                background-color: rgb(24, 82, 103);
-            }
-            .header_img {
-                padding:7px;
-                width:100px;
-                display: inline-block;
-            }
-            .header_title {
-                color:white;
-                text-align:center;
-                font-size: 25px;
-                padding-top: 25px;
-                display: inline-block;
-            }
-            #footer {
-                padding-right:30px;
-                padding-top:10px;
-                padding-bottom:10px;
-                color:black;
-                background-color: rgb(24, 82, 103);
-            }
-            .credit {
-                color:black;
-            }
-            .credit:hover {
-                color:grey;
-                text-decoration: none;
-            }
-            .header_nav {
-                padding-top: 30px;
-                padding-left: 9px;
-                color: white;
-                font-size: 19px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-            }
-            .header_nav:hover {
-                text-decoration: none;
-                color:grey;
-            }
-            .drop-item {
-                font-size: 16px;
-                padding-top: 5px;
-            }
-
-            .head-container {
-                text-align:right;
-            }
-
-            @media screen and (max-width: 48em) {
-                .head-container {
-                    text-align: center;
-                }
-            }
-        </style>
     </head>
     <body>
         {% block root %}
-            <div class='' id='root' style="background: #FFFFFF;">
-                <div class='row header'>
-                    <div class='col-lg-5 col-md-6 col-sm-12 col-xs-12' style='text-align:center;'>
-                        <a href="{% url 'home:index' %}">
-                            <img class='header_img' src="{% static 'logo.png' %}" alt='STEP UP logo'/>
-                            <h1 class='header_title'>Women in Physics</h1>
-                        </a>
-                    </div>
-                    <div class='col-lg-2 col-md-1'></div>
-                    <div class='col-lg-5 col-md-5 col-sm-12 col-xs-12 head-container'>
-                        <a href="{% url 'classroom:classroom' %}"><h3 class='header_nav'>Classroom</h3></a>
-                        <div class="dropdown" style="display:inline-block;padding-right:10px;">
-                            <button class="btn dropdown-toggle" data-toggle="dropdown" style="color:white;">
-                                <i class="fas fa-user"></i>
-                                <span class="caret"></span>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right" style="text-align:left;background-color:rgba(24, 82, 103, .9);color:white;">
-                                {% if user.is_authenticated %}
-                                    <ul><h3 style="color:white;" class="drop-item">{{ user.username }}</h3></ul>
-                                    {% with class_name=user.groups.all.0|stringformat:"s" %}
-                                        {% if class_name == "teacher" %}
-                                            <ul><a href="{% url 'classroom:classroom' %}" style="color:white;"><h3 class="drop-item">{{ user.class_teacher }}</h3></a></ul>
-                                        {% elif class_name == "student" %}
-                                            <ul><a href="{% url 'classroom:classroom' %}" style="color:white;"><h3 class="drop-item">{{ user.class_student }}</h3></a></ul>
-                                        {% else %}
-                                            <ul><h3 class="drop-item" style="color:white;">No Class</h3></ul>
-                                        {% endif %}
-                                    {% endwith %}
-                                    <ul><a href="{% url 'logout' %}" style="color:white;"><h3 class="drop-item">Logout</h3></a></ul>
-                                {% else %}
-                                    <ul><a href="{% url 'login' %}" style="color:white;"><h3 class="drop-item">Login</h3></a></ul>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% block main %}
-                    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-                {% endblock %}
-                <div id='footer'>
-                    <p style='text-align:right;'>Created by <a href='https://www.linkedin.com/in/lauren-delwiche-518638197' class='credit'>Lauren Delwiche</a></p>
-                </div>
-            </div>
+            {% block main %}
+            {% endblock %}
         {% endblock %}
     </body>
 </html>
