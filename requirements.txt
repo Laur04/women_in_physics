@@ -3,5 +3,6 @@ gunicorn
 django-heroku
 Pillow
 python-dotenv
+python-slugify
 dj-database-url
 whitenoise

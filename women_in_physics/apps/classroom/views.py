@@ -12,6 +12,8 @@ from django.template.loader import render_to_string
 from .forms import CreateForm, SurveyForm, StudentResetForm
 from .models import Classes, Post
 
+from slugify import slugify
+
 def create(request):
     if request.method == 'POST':
         form = CreateForm(request.POST)
@@ -87,7 +89,7 @@ def response(request):
         if form.is_valid():
             find_class = Classes.objects.get(name=classname)
 
-            new_id = "".join(form.cleaned_data['response'].split())[:60]
+            new_id = slugify("".join(form.cleaned_data['response'].split())[:40])
 
             new_post = Post(
                 post_id=new_id,
