@@ -13,7 +13,7 @@
         {% for item in post_list %}
             <div class="row">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <a href="{% url 'classroom:view_pdf' item.post_id %}" target="_blank" class='post'>{{ item.name }}'s Profile</a>                          
+                    {{ item.response }}                          
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     {% if item.hidden == True %}
@@ -38,7 +38,7 @@
         <p>The posts from your fellow classmates will appear below as your teacher makes them available.</p>
         <hr>
         {% for item in post_list %}
-            <a href="{% url 'classroom:view_pdf' item.post_id %}" target="_blank" class='post'>{{ item.name }}'s Profile</a>                          
+            {{ item.response }}                          
             <hr>
         {% endfor %}
     {% endif %}
