@@ -17,7 +17,7 @@ class Post(models.Model):
     response = models.CharField(max_length=500)
 
     def __str__(self):
-        return self.student_name
+        return self.response
 
     def changeStatus(self):
         if self.hidden == True:
